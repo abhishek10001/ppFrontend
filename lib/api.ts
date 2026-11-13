@@ -1,18 +1,20 @@
 import { IPhoto, IDispatch } from './fallbackData';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+const API_BASE_URL = rawApiUrl.replace(/\/+$/, '');
 
 async function fetchWithFallbackPort(endpoint: string, options?: RequestInit) {
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   try {
-    const res = await fetch(`${API_BASE_URL}${endpoint}`, options);
+    const res = await fetch(`${API_BASE_URL}${cleanEndpoint}`, options);
     if (res.ok) return res;
-    throw new Error('Not ok');
+    throw new Error(`HTTP error ${res.status}`);
   } catch (err) {
-    // Try port 5001 if 5000 was blocked
-    if (API_BASE_URL.includes('5000')) {
+    // Try port 5001 if locally running on 5000
+    if (API_BASE_URL.includes('localhost:5000')) {
       const altUrl = API_BASE_URL.replace('5000', '5001');
       try {
-        const altRes = await fetch(`${altUrl}${endpoint}`, options);
+        const altRes = await fetch(`${altUrl}${cleanEndpoint}`, options);
         if (altRes.ok) return altRes;
       } catch (e) {
         // silent fallback
@@ -96,8 +98,7 @@ export async function fetchPhotos(params?: {
 
 export async function fetchPhotoBySlug(slug: string): Promise<IPhoto | null> {
   try {
-    const res = await fetch(`${API_BASE_URL}/photos/${slug}`, { cache: 'no-store' });
-    if (!res.ok) throw new Error('Not found');
+    const res = await fetchWithFallbackPort(`/photos/${slug}`, { cache: 'no-store' });
     const data = await res.json();
     return data.data;
   } catch (err) {
@@ -107,8 +108,7 @@ export async function fetchPhotoBySlug(slug: string): Promise<IPhoto | null> {
 
 export async function fetchDispatches(): Promise<IDispatch[]> {
   try {
-    const res = await fetch(`${API_BASE_URL}/dispatches?published=true`, { cache: 'no-store' });
-    if (!res.ok) throw new Error('Failed to fetch dispatches');
+    const res = await fetchWithFallbackPort(`/dispatches?published=true`, { cache: 'no-store' });
     const data = await res.json();
     return data.data || [];
   } catch (err) {
@@ -118,8 +118,7 @@ export async function fetchDispatches(): Promise<IDispatch[]> {
 
 export async function fetchDispatchBySlug(slug: string): Promise<IDispatch | null> {
   try {
-    const res = await fetch(`${API_BASE_URL}/dispatches/${slug}`, { cache: 'no-store' });
-    if (!res.ok) throw new Error('Not found');
+    const res = await fetchWithFallbackPort(`/dispatches/${slug}`, { cache: 'no-store' });
     const data = await res.json();
     return data.data;
   } catch (err) {
@@ -134,13 +133,12 @@ export async function submitInquiry(data: {
   projectScope: string;
 }): Promise<{ success: boolean; message: string }> {
   try {
-    const res = await fetch(`${API_BASE_URL}/inquiries`, {
+    const res = await fetchWithFallbackPort(`/inquiries`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
     const json = await res.json();
-    if (!res.ok) throw new Error(json.error || 'Submission failed');
     return { success: true, message: json.message || 'Archival inquiry transmitted successfully.' };
   } catch (err: any) {
     return { success: false, message: err.message || 'Transmission failed.' };
@@ -149,13 +147,12 @@ export async function submitInquiry(data: {
 
 export async function subscribeNewsletter(email: string): Promise<{ success: boolean; message: string }> {
   try {
-    const res = await fetch(`${API_BASE_URL}/subscribers`, {
+    const res = await fetchWithFallbackPort(`/subscribers`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email })
     });
     const json = await res.json();
-    if (!res.ok) throw new Error(json.error || 'Subscription failed');
     return { success: true, message: json.message || 'Subscribed to Postal Dispatches.' };
   } catch (err: any) {
     return { success: false, message: err.message || 'Subscription failed.' };
