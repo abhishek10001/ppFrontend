@@ -45,74 +45,76 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#E5E5E5]">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between text-xs tracking-wider">
-        {/* Brand / Wordmark */}
-        <div className="flex items-center">
-          <Link
-            href="/"
-            onClick={() => setMobileMenuOpen(false)}
-            className="font-extrabold text-sm sm:text-base tracking-tight hover:opacity-80 transition-opacity uppercase font-sans whitespace-nowrap"
-          >
-            PIXEL PERFECT
-          </Link>
-        </div>
-
-        {/* Primary Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 font-mono font-medium text-[11px]">
-          {navLinks.map((link) => {
-            const isActive = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`py-1 transition-colors relative whitespace-nowrap ${
-                  isActive
-                    ? 'text-black font-bold border-b border-black'
-                    : 'text-[#737373] hover:text-black'
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Utility Section */}
-        <div className="flex items-center space-x-2 sm:space-x-4">
-          {/* Status Indicator (Desktop only) */}
-          <div className="hidden lg:flex items-center space-x-2 font-mono text-[10px] text-[#262626]">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="tracking-widest">AVAILABLE FOR WORK</span>
+    <>
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#E5E5E5]">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between text-xs tracking-wider">
+          {/* Brand / Wordmark */}
+          <div className="flex items-center">
+            <Link
+              href="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="font-extrabold text-sm sm:text-base tracking-tight hover:opacity-80 transition-opacity uppercase font-sans whitespace-nowrap"
+            >
+              PIXEL PERFECT
+            </Link>
           </div>
 
-          {/* CTA Inquiries Button: Hidden on smaller screens as requested, visible on md+ */}
-          <Link
-            href="/about#inquiries"
-            onClick={() => setMobileMenuOpen(false)}
-            className="hidden md:inline-flex items-center space-x-1.5 border border-black px-2.5 sm:px-3.5 py-1.5 text-[10px] font-mono tracking-widest uppercase hover:bg-black hover:text-white transition-colors whitespace-nowrap"
-          >
-            <span>GET IN TOUCH</span>
-            <ArrowUpRight className="w-3 h-3" />
-          </Link>
+          {/* Primary Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 font-mono font-medium text-[11px]">
+            {navLinks.map((link) => {
+              const isActive = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`py-1 transition-colors relative whitespace-nowrap ${
+                    isActive
+                      ? 'text-black font-bold border-b border-black'
+                      : 'text-[#737373] hover:text-black'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
 
-          {/* Mobile Menu Toggle Button */}
-          <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden p-2 border border-black text-black hover:bg-black hover:text-white transition-colors flex items-center justify-center"
-            aria-label="Open mobile navigation menu"
-          >
-            <Menu className="w-4 h-4" />
-          </button>
+          {/* Utility Section */}
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            {/* Status Indicator (Desktop only) */}
+            <div className="hidden lg:flex items-center space-x-2 font-mono text-[10px] text-[#262626]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="tracking-widest">AVAILABLE FOR WORK</span>
+            </div>
+
+            {/* CTA Inquiries Button: Hidden on smaller screens as requested, visible on md+ */}
+            <Link
+              href="/about#inquiries"
+              onClick={() => setMobileMenuOpen(false)}
+              className="hidden md:inline-flex items-center space-x-1.5 border border-black px-2.5 sm:px-3.5 py-1.5 text-[10px] font-mono tracking-widest uppercase hover:bg-black hover:text-white transition-colors whitespace-nowrap"
+            >
+              <span>GET IN TOUCH</span>
+              <ArrowUpRight className="w-3 h-3" />
+            </Link>
+
+            {/* Mobile Menu Toggle Button */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="md:hidden p-2 border border-black text-black hover:bg-black hover:text-white transition-colors flex items-center justify-center"
+              aria-label="Open mobile navigation menu"
+            >
+              <Menu className="w-4 h-4" />
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile Drawer Backdrop */}
+      {/* Mobile Drawer Backdrop (Rendered outside header to escape backdrop-filter stacking context) */}
       <div
-        className={`fixed inset-0 bg-black/75 backdrop-blur-xs z-50 transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 bg-black/75 backdrop-blur-xs z-[9998] transition-opacity duration-300 md:hidden ${
           mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setMobileMenuOpen(false)}
@@ -121,8 +123,8 @@ export default function Header() {
 
       {/* Mobile Navigation Sidebar Drawer (Bauhaus Black Monolith) */}
       <aside
-        className={`fixed top-0 right-0 bottom-0 h-full w-[85%] sm:w-[380px] max-w-[380px] bg-black text-white z-50 shadow-2xl border-l border-[#262626] flex flex-col justify-between p-6 sm:p-8 font-mono transform transition-transform duration-300 ease-in-out md:hidden overflow-y-auto ${
-          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 right-0 bottom-0 h-[100dvh] w-[85%] sm:w-[380px] max-w-[380px] bg-black text-white z-[9999] shadow-2xl border-l border-[#262626] flex flex-col justify-between p-6 sm:p-8 font-mono transform transition-transform duration-300 ease-in-out md:hidden overflow-y-auto ${
+          mobileMenuOpen ? 'translate-x-0 pointer-events-auto' : 'translate-x-full pointer-events-none'
         }`}
         aria-label="Mobile Navigation Drawer"
       >
@@ -229,6 +231,6 @@ export default function Header() {
           </div>
         </div>
       </aside>
-    </header>
+    </>
   );
 }
