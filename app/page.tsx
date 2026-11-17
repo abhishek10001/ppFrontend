@@ -33,7 +33,7 @@ export default function IndexPage() {
       <section className="max-w-[1400px] mx-auto px-4 sm:px-8 pt-8 sm:pt-14 pb-6">
         {/* Eyebrow */}
         <div className="mono-label text-[#737373] text-[9px] sm:text-[11px] mb-2 sm:mb-3">
-          VISUAL JOURNAL / RECENT WORK • ABHISHEK GANGWAR
+          VISUALS & JOURNAL • ABHISHEK GANGWAR
         </div>
 
         {/* Display Title and Subcopy */}

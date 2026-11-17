@@ -50,7 +50,7 @@ export default function AboutPage() {
     title: 'Abhishek Gangwar with Canon EOS R10',
     imageUrl: '',
     caption: 'NEW DELHI METROPOLITAN AREA - AMBIENT DAWN LIGHT',
-    bio: 'Based between New Delhi and Mumbai. Documenting transient human moments, architectural tensions, and urban solitude strictly under ambient natural illumination across the Indian subcontinent since 2018. Photographed with the Canon EOS R10.'
+    bio: 'Based between New Delhi and Pune. I love to Show how I Connect with the Streets, People and the environment around me.'
   };
 
   const photographerName = siteConfig?.photographerName || 'Abhishek Gangwar';
@@ -71,7 +71,7 @@ export default function AboutPage() {
                 ABOUT & ETHOS
               </h1>
               <p className="font-mono text-xs sm:text-sm text-[#404040] leading-relaxed max-w-2xl">
-                {aboutPhoto.bio || 'Based between New Delhi and Mumbai. Documenting transient human moments, architectural tensions, and urban solitude strictly under ambient natural illumination across the Indian subcontinent since 2018. Photographed with the Canon EOS R10.'}
+                {aboutPhoto.bio || 'Based between New Delhi and Pune. I love to Show how I Connect with the Streets, People and the environment around me.'}
               </p>
             </div>
 
@@ -196,9 +196,8 @@ export default function AboutPage() {
                         type="button"
                         key={cls}
                         onClick={() => setClassification(cls)}
-                        className={`py-2.5 sm:py-2 px-2 tracking-wider uppercase transition-colors ${
-                          classification === cls ? 'bg-black text-white' : 'bg-white text-black hover:bg-[#F4F4F4]'
-                        }`}
+                        className={`py-2.5 sm:py-2 px-2 tracking-wider uppercase transition-colors ${classification === cls ? 'bg-black text-white' : 'bg-white text-black hover:bg-[#F4F4F4]'
+                          }`}
                       >
                         {cls}
                       </button>
