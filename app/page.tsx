@@ -24,7 +24,8 @@ export default function IndexPage() {
   }, []);
 
   const heroPlate = siteConfig?.heroPlate;
-  const hasHeroImage = Boolean(heroPlate?.imageUrl && heroPlate.imageUrl.trim());
+  const defaultHeroUrl = plates[0]?.cloudinary?.secureUrl || (plates[0] as any)?.imageUrl;
+  const heroImageUrl = (heroPlate?.imageUrl && heroPlate.imageUrl.trim()) ? heroPlate.imageUrl : defaultHeroUrl;
   const featuredPlates = plates.slice(0, 8);
 
   return (
@@ -48,14 +49,14 @@ export default function IndexPage() {
         </div>
 
         {/* 16:9 Cinematic Hero Archival Banner */}
-        {hasHeroImage && (
+        {heroImageUrl && (
           <div className="border border-black bg-black shadow-lg">
             {/* Cinematic 16:9 Image Container (Occupies full length, crops any uploaded aspect ratio to 16:9) */}
             <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#0A0A0A] group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={heroPlate.imageUrl}
-                alt={heroPlate.title || 'Hero Photograph'}
+                src={heroImageUrl}
+                alt={heroPlate?.title || 'Hero Photograph'}
                 className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.015]"
               />
 
@@ -67,12 +68,12 @@ export default function IndexPage() {
             <div className="border-t border-[#262626] bg-[#0A0A0A] text-white p-3.5 sm:px-6 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between text-[10px] sm:text-[11px] font-mono tracking-wider gap-2">
               <div className="flex items-center space-x-2.5 truncate">
                 <span className="bg-white text-black font-bold px-1.5 py-0.5 text-[9px] uppercase tracking-widest flex-shrink-0">
-                  {heroPlate.plateNumber || 'PL. 01'}
+                  {heroPlate?.plateNumber || 'PL. 01'}
                 </span>
                 <span className="font-bold uppercase tracking-tight text-white text-xs sm:text-sm truncate">
-                  {heroPlate.title || 'UNTITLED FIELD PIECE'}
+                  {heroPlate?.title || 'UNTITLED FIELD PIECE'}
                 </span>
-                {heroPlate.year && (
+                {heroPlate?.year && (
                   <span className="text-[#737373] hidden sm:inline">
                     // {heroPlate.year}
                   </span>
@@ -80,7 +81,7 @@ export default function IndexPage() {
               </div>
 
               <div className="flex items-center space-x-3 text-[9px] sm:text-[10px] text-[#A3A3A3] uppercase tracking-widest self-start sm:self-auto">
-                {heroPlate.location && (
+                {heroPlate?.location && (
                   <span className="text-[#CCC] truncate">
                     {heroPlate.location}
                   </span>
@@ -99,7 +100,7 @@ export default function IndexPage() {
       </section>
 
       {/* 2. Selected Plates (Uncropped Photos in Responsive Bauhaus Grid) */}
-      <section className="max-w-[1400px] mx-auto px-4 sm:px-8 pt-10 sm:pt-16 pb-12 sm:pb-14">
+      <section id="selected-works" className="max-w-[1400px] mx-auto px-4 sm:px-8 pt-12 sm:pt-20 pb-12 sm:pb-14">
         {/* Section Header */}
         <div className="border-b border-[#E5E5E5] pb-3 mb-6 sm:mb-8 flex items-center justify-between font-mono text-xs tracking-wider">
           <div className="font-bold text-black uppercase">
