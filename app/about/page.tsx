@@ -49,7 +49,7 @@ export default function AboutPage() {
     label: 'PLATE 01 / AUTOPORTRAIT',
     title: 'Abhishek Gangwar with Canon EOS R10',
     imageUrl: '',
-    caption: 'NEW DELHI METROPOLITAN AREA - AMBIENT DAWN LIGHT',
+    caption: 'From Bareilly,UP',
     bio: 'Based between New Delhi and Pune. I love to Show how I Connect with the Streets, People and the environment around me.'
   };
 
@@ -114,7 +114,7 @@ export default function AboutPage() {
                     01.<br />ZERO STAGING
                   </div>
                   <p className="font-mono text-[11px] text-[#525252] leading-relaxed">
-                    Unposed, authentic street reality. Documenting raw human moments as they happen without direction.
+                    Unstaged, authentic street reality. Documenting raw human moments as they happen without direction.
                   </p>
                 </div>
 
@@ -123,7 +123,7 @@ export default function AboutPage() {
                     02.<br />AVAILABLE LIGHT
                   </div>
                   <p className="font-mono text-[11px] text-[#525252] leading-relaxed">
-                    Strict reliance on ambient illumination—monsoon clouds, morning haze, neon reflections, and harsh midday sun.
+                    Strict reliance on Natural Light and it's reflections.
                   </p>
                 </div>
 

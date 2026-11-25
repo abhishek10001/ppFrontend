@@ -47,29 +47,52 @@ export default function IndexPage() {
           </p>
         </div>
 
-        {/* Hero Archival Plate (Responsive Aspect: 4/3 mobile, 16/9 tablet, 21/9 desktop) */}
+        {/* 16:9 Cinematic Hero Archival Banner */}
         {hasHeroImage && (
-          <div className="border border-[#E5E5E5] bg-white">
-            <div className="relative p-2.5 sm:p-6 bg-white aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9] max-h-[520px] w-full flex items-center justify-center overflow-hidden">
+          <div className="border border-black bg-black shadow-lg">
+            {/* Cinematic 16:9 Image Container (Occupies full length, crops any uploaded aspect ratio to 16:9) */}
+            <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#0A0A0A] group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={heroPlate.imageUrl}
                 alt={heroPlate.title || 'Hero Photograph'}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.015]"
               />
+
+              {/* Subtle Bottom Contrast Vignette */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
             </div>
-            {/* Sub-caption hairline row */}
-            <div className="border-t border-[#E5E5E5] p-3 sm:px-4 sm:py-2.5 bg-white flex flex-col sm:flex-row sm:items-center justify-between text-[10px] sm:text-[11px] font-mono tracking-wider text-[#525252] gap-1.5 sm:gap-2">
-              <div className="truncate">
-                <span className="font-bold text-black">{heroPlate.plateNumber || 'PL. 01'}</span>
-                {heroPlate.title && ` — ${heroPlate.title}`}
-                {heroPlate.year && ` — ${heroPlate.year}`}
+
+            {/* Architectural Colophon Strip */}
+            <div className="border-t border-[#262626] bg-[#0A0A0A] text-white p-3.5 sm:px-6 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between text-[10px] sm:text-[11px] font-mono tracking-wider gap-2">
+              <div className="flex items-center space-x-2.5 truncate">
+                <span className="bg-white text-black font-bold px-1.5 py-0.5 text-[9px] uppercase tracking-widest flex-shrink-0">
+                  {heroPlate.plateNumber || 'PL. 01'}
+                </span>
+                <span className="font-bold uppercase tracking-tight text-white text-xs sm:text-sm truncate">
+                  {heroPlate.title || 'UNTITLED FIELD PIECE'}
+                </span>
+                {heroPlate.year && (
+                  <span className="text-[#737373] hidden sm:inline">
+                    // {heroPlate.year}
+                  </span>
+                )}
               </div>
-              {heroPlate.location && (
-                <div className="text-[9px] sm:text-[10px] text-[#737373] uppercase tracking-widest whitespace-nowrap">
-                  {heroPlate.location}
-                </div>
-              )}
+
+              <div className="flex items-center space-x-3 text-[9px] sm:text-[10px] text-[#A3A3A3] uppercase tracking-widest self-start sm:self-auto">
+                {heroPlate.location && (
+                  <span className="text-[#CCC] truncate">
+                    {heroPlate.location}
+                  </span>
+                )}
+                <Link
+                  href="/archive"
+                  className="text-white hover:underline flex items-center space-x-1 whitespace-nowrap pl-2.5 border-l border-[#333]"
+                >
+                  <span>VIEW FULL ARCHIVE</span>
+                  <span>→</span>
+                </Link>
+              </div>
             </div>
           </div>
         )}
