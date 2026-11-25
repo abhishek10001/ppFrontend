@@ -49,7 +49,7 @@ export default function AboutPage() {
     label: 'PLATE 01 / AUTOPORTRAIT',
     title: 'Abhishek Gangwar with Canon EOS R10',
     imageUrl: '',
-    caption: 'From Bareilly,UP',
+    caption: 'Walk ,Observe ,Stop ,Click',
     bio: 'Based between New Delhi and Pune. I love to Show how I Connect with the Streets, People and the environment around me.'
   };
 
@@ -71,7 +71,7 @@ export default function AboutPage() {
                 ABOUT & ETHOS
               </h1>
               <p className="font-mono text-xs sm:text-sm text-[#404040] leading-relaxed max-w-2xl">
-                {aboutPhoto.bio || 'Based between New Delhi and Pune. I love to Show how I Connect with the Streets, People and the environment around me.'}
+                {'Based between New Delhi and Pune. I love to Show how I Connect with the Streets, People and the environment around me.'}
               </p>
             </div>
 
